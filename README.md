@@ -174,6 +174,9 @@
 
 ![Scatter Plot W/ Linear Regression](Chart_Out/Screenshot%202023-02-19%20124421.png)
 
+## Analysis
+> See [pymaceuticals_plot_analysis.ipynb ](./pymaceuticals_plot_analysis.ipynb) for analysis.
+
 - - -
 
 ## References
