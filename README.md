@@ -52,7 +52,7 @@
 2. Display the number of unique mice IDs in the data, and then check for any mouse ID with duplicate time points. Display the data associated with that mouse ID, and then create a new DataFrame where this data is removed. Use this cleaned DataFrame for the remaining steps.
 
 3. Display the updated number of unique mice IDs.
-See [pymaceuticals_plot_analysis.ipynb ](./pymaceuticals_plot_analysis.ipynb) for points 2 & 3. 
+> See [pymaceuticals_plot_analysis.ipynb ](./pymaceuticals_plot_analysis.ipynb) for points 2 & 3. 
 
 ## Generate Summary Statistics
 > Create a DataFrame of summary statistics. Remember, there is more than one method to produce the results you're after, so the method you use is less important than the result.
