@@ -165,10 +165,14 @@
 
 2. Generate a scatter plot of tumor volume versus mouse weight for the Capomulin treatment regimen.
 
+![Line Plot](Chart_Out/Screenshot%202023-02-19%20124327.png)
+
 ## Calculate Correlation and Regression
 1. Calculate the correlation coefficient and linear regression model between mouse weight and average tumor volume for the Capomulin treatment.
 
 2. Plot the linear regression model on top of the previous scatter plot.
+
+![Scatter Plot W/ Linear Regression](Chart_Out/Screenshot%202023-02-19%20124421.png)
 
 - - -
 
