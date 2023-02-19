@@ -31,7 +31,6 @@
 ## Prepare the Data
 1. Run the provided package dependency and data imports, and then merge the mouse_metadata and study_results DataFrames into a single DataFrame.
 ```python
-{
     # Dependencies and Setup
     import matplotlib.pyplot as plt
     import pandas as pd
@@ -48,7 +47,6 @@
 
     # Combine the data into a single dataset
     Combined_Pharm_Data = mouse_metadata.merge(study_results, on="Mouse ID")
-}
 ```
 
 2. Display the number of unique mice IDs in the data, and then check for any mouse ID with duplicate time points. Display the data associated with that mouse ID, and then create a new DataFrame where this data is removed. Use this cleaned DataFrame for the remaining steps.
