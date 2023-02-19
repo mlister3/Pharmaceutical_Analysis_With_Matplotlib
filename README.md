@@ -158,6 +158,8 @@
     Chart.set_ylabel("Final Tumor Volume (mm3)")
 ```
 
+![Box Plot](Chart_Out/Screenshot%202023-02-19%20124059.png)
+
 ## Create a Line Plot and a Scatter Plot
 1. Select a mouse that was treated with Capomulin, and generate a line plot of tumor volume versus time point for that mouse.
 
