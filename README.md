@@ -31,6 +31,23 @@
 ## Prepare the Data
 1. Run the provided package dependency and data imports, and then merge the mouse_metadata and study_results DataFrames into a single DataFrame.
 
+`# Dependencies and Setup`
+`import matplotlib.pyplot as plt`
+`import pandas as pd`
+`import scipy.stats as st`
+`from scipy.stats import linregress`
+
+`# Study data files`
+`mouse_metadata_path = "data/Mouse_metadata.csv"`
+`study_results_path = "data/Study_results.csv"`
+
+`# Read the mouse data and the study results`
+`mouse_metadata = pd.read_csv(mouse_metadata_path)`
+`study_results = pd.read_csv(study_results_path)`
+
+# Combine the data into a single dataset
+Combined_Pharm_Data = mouse_metadata.merge(study_results, on="Mouse ID")
+
 2. Display the number of unique mice IDs in the data, and then check for any mouse ID with duplicate time points. Display the data associated with that mouse ID, and then create a new DataFrame where this data is removed. Use this cleaned DataFrame for the remaining steps.
 
 3. Display the updated number of unique mice IDs.
