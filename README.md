@@ -91,6 +91,8 @@
 
     - Create the second pie chart with Matplotlib's pyplot methods.
 
+> See [pymaceuticals_plot_analysis.ipynb ](./pymaceuticals_plot_analysis.ipynb) for charts. 
+
 ## Calculate Quartiles, Find Outliers, and Create a Box Plot
 1. Calculate the final tumor volume of each mouse across four of the most promising treatment regimens: Capomulin, Ramicane, Infubinol, and Ceftamin. Then, calculate the quartiles and IQR, and determine if there are any potential outliers across all four treatment regimens. Use the following substeps:
 
@@ -103,6 +105,58 @@
     - Determine outliers by using the upper and lower bounds, and then print the results.
 
 2. Using Matplotlib, generate a box plot that shows the distribution of the final tumor volume for all the mice in each treatment group. Highlight any potential outliers in the plot by changing their color and style.
+
+```python
+    Select_Regimens = ["Capomulin", "Ramicane", "Infubinol", "Ceftamin"]
+    Filtered_Reg = CCMData[CCMData["Drug Regimen"].isin(Select_Regimens)]
+
+    # Start by getting the last (greatest) timepoint for each mouse
+    last_timepoint = Filtered_Reg.groupby(["Mouse ID"])["Timepoint"].max()
+    last_timepoint = last_timepoint.reset_index()
+
+    # Merge this group df with the original DataFrame to get the tumor volume at the last timepoint
+    final_tumor_volume = pd.merge(last_timepoint, Filtered_Reg, on=["Mouse ID", "Timepoint"], how="left")
+    final_tumor_volume = final_tumor_volume[["Mouse ID", "Drug Regimen", "Tumor Volume (mm3)"]]
+    
+    # Create empty list to fill with tumor vol data (for plotting)
+    tumor_vol_data = []
+
+    # Put treatments into a list for for loop (and later for plot labels)
+    for drug in Select_Regimens:
+        # Locate the rows which contain mice on each drug and get the tumor volumes
+        drug_df = final_tumor_volume[final_tumor_volume["Drug Regimen"] == drug]
+        tumor_volumes = drug_df["Tumor Volume (mm3)"]
+    
+        # Calculate the IQR and quantitatively determine if there are any potential outliers. 
+        quartiles = tumor_volumes.quantile([.25,.5,.75])
+        lowerq = quartiles[0.25]
+        upperq = quartiles[0.75]
+        iqr = upperq-lowerq 
+    
+        # Determine outliers using upper and lower bounds
+        lower_bound = lowerq - (1.5*iqr)
+        upper_bound = upperq + (1.5*iqr)
+    
+        # add subset
+        outliers = tumor_volumes[(tumor_volumes < lower_bound) | (tumor_volumes > upper_bound)]
+        print(f"{drug}: Lower bound = {lower_bound:.2f}, Upper bound = {upper_bound:.2f}, Outliers = {outliers.tolist()}")
+    
+    # Generate a box plot that shows the distrubution of the tumor volume for each treatment group.
+    Drugs_plot = [final_tumor_volume.loc[final_tumor_volume["Drug Regimen"] == "Capomulin"]["Tumor Volume (mm3)"],
+                final_tumor_volume.loc[final_tumor_volume["Drug Regimen"] == "Ramicane"]["Tumor Volume (mm3)"],
+                final_tumor_volume.loc[final_tumor_volume["Drug Regimen"] == "Infubinol"]["Tumor Volume (mm3)"],
+                final_tumor_volume.loc[final_tumor_volume["Drug Regimen"] == "Ceftamin"]["Tumor Volume (mm3)"]]
+
+    Window = plt.figure(figsize=(10, 5))
+    Chart = Window.add_subplot(111)
+
+    box_plot = Chart.boxplot(data_to_plot, labels=Select_Regimens)
+
+    for flier in box_plot['fliers']:
+        flier.set(marker='o', color='red')
+    
+    Chart.set_ylabel("Final Tumor Volume (mm3)")
+```
 
 ## Create a Line Plot and a Scatter Plot
 1. Select a mouse that was treated with Capomulin, and generate a line plot of tumor volume versus time point for that mouse.
