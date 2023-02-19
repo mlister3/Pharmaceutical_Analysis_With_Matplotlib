@@ -63,6 +63,21 @@
 
 - A column for each of the following statistics: mean, median, variance, standard deviation, and SEM of the tumor volume.
 
+```python
+    Drug_Groupby_df = CCMData.groupby("Drug Regimen")
+
+    # Use groupby and summary statistical methods to calculate the following properties of each drug regimen: 
+    # mean, median, variance, standard deviation, and SEM of the tumor volume.
+    mean = Drug_Groupby_df["Tumor Volume (mm3)"].mean()
+    median = Drug_Groupby_df["Tumor Volume (mm3)"].median()
+    variance = Drug_Groupby_df["Tumor Volume (mm3)"].var()
+    standard_deviation = Drug_Groupby_df["Tumor Volume (mm3)"].std()
+    SEM = Drug_Groupby_df["Tumor Volume (mm3)"].sem()
+
+    # Assemble the resulting series into a single summary DataFrame.
+    summary_statistics = pd.DataFrame({"Mean Tumor Volume": mean, "Median Tumor Volume": median, "Tumor Volume Variance": variance, "Tumor Volume Std. Dev.": standard_deviation, "Tumor Volume Std. Err.": SEM})
+```
+
 ## Create Bar Charts and Pie Charts
 1. Generate two bar charts. Both charts should be identical and show the total number of time points for all mice tested for each drug regimen throughout the study.
 
